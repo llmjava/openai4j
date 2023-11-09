@@ -1,0 +1,17 @@
+name: trigger
+
+on:
+  schedule:
+    - cron:  '30 5 * * *'
+
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - run: ./script.sh

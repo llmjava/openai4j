@@ -1,0 +1,36 @@
+name: Update openapi spec
+
+on:
+  workflow_run:
+    workflows: ["trigger"]
+    types: [completed]
+
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Checkout openai-openapi
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          repository: openai/openai-openapi
+          path: './src'
+      - name: Checkout openai4j
+        uses: actions/checkout@v4
+        with:
+            fetch-depth: 1
+      - name: Update API spec
+        run: |
+          mv ./src/openapi.yaml .
+          rm -rf ./src
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Update API spec
+          title: 'update openapi.yaml'
+          body: 'This pull request is created by GitHub Actions'
+          branch: update-api-spec
