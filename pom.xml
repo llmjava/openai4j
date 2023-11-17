@@ -106,7 +106,7 @@
                             <!-- The raw spec uses YAML features OpenAPI Generator doesn't  -->
                             <!-- support, so we use a version rendered to JSON at           -->
                             <!-- https://editor.swagger.io/, then edited.                   -->
-                            <inputSpec>openapi.json</inputSpec>
+                            <inputSpec>openapi.yaml</inputSpec>
                             <!-- There are a couple of cosmetic errors in the JSON, so skip -->
                             <!-- the validation step. It doesn't affect the output.         -->
                             <skipValidateSpec>true</skipValidateSpec>
